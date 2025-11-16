@@ -11,9 +11,6 @@ $ curl -X POST https://xavhl-aurora-question-answeirng.hf.space/gradio_api/call/
 	| read EVENT_ID; curl -N https://xavhl-aurora-question-answeirng.hf.space/gradio_api/call/respond/$EVENT_ID
 ```
 
-API doc
-
-
 # Structure
 ```
 llm-qa/
@@ -31,8 +28,7 @@ llm-qa/
 │  ├─ embeddings.npy
 │  └─ faiss.index
 ├─ utils/
-│  ├─ config.py             # constants, env-driven settings
-│  └─ logger.py
+│  └─ config.py             # constants, env-driven settings
 ├─ README.md
 ```
 
@@ -40,12 +36,11 @@ llm-qa/
 
 ## Design Notes
 
-I started designing in terms of robustness for varying scope of complexity,
+The design process started and evolved with respect to robustness for varying scope of complexity,
 1. Naive rule-based keyword matching 
    1. Rejected given our need for smart assistant question answering
 2. TF-IDF (Term Frequency-Inverse Document Frequency) based retrieval
-   1. I have implemented this method, though despite the low Complexity and high Efficiency, we could at best get back original message sentences that has high matching frequency score
-   2. ref: [google colab](https://colab.research.google.com/drive/1Eqw8Zyxt1ND2adcGtOM-HUbmmqdiJxrp?usp=sharing)
+   1. This method was implemented (ref: [google colab](https://colab.research.google.com/drive/1Eqw8Zyxt1ND2adcGtOM-HUbmmqdiJxrp?usp=sharing)), though despite the low Complexity and high Efficiency, we could at best get back original message sentences that has high matching frequency score
 3. Custom neural network with dataset training
    1. Rejected considering our current dataset scale; though fine-tuning on larger language models can be a feasible choice
 4. Zero shot prompting on pretrained LLM with RAG
