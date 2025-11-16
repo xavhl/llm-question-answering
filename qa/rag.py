@@ -21,4 +21,4 @@ def answer_question(generator, retriever: Retriever, question: str, top_k: int =
     text = out[0].get('generated_text', '')
     if text.startswith('Answer:'):
         text = text[len('Answer:'):].strip()
-    return text
+    return { 'answer': text }

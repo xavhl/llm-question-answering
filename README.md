@@ -1,6 +1,17 @@
 # Demo
 
-[HuggingFace App](https://huggingface.co/spaces/xavhl/aurora-question-answeirng) or via API endpoint according to `Use via API` option on Gradio interface
+[HuggingFace App](https://huggingface.co/spaces/xavhl/aurora-question-answeirng) or via API endpoint using cURL ([API doc](./api.yaml))
+```shell
+$ curl -X POST https://xavhl-aurora-question-answeirng.hf.space/gradio_api/call/respond -s -H "Content-Type: application/json" -d '{
+	"data": [
+							"When is Layla planning her trip to London?",
+							8
+	]}' \
+	| awk -F'"' '{ print $4}'  \
+	| read EVENT_ID; curl -N https://xavhl-aurora-question-answeirng.hf.space/gradio_api/call/respond/$EVENT_ID
+```
+
+API doc
 
 
 # Structure
@@ -52,7 +63,7 @@ I started designing in terms of robustness for varying scope of complexity,
 
 ### Future plans
 
-This prototype is far from perfection, with following features that be further perfected:
+This prototype is far from perfect, with following features that be further refined:
 
 - Validation and fact grounding
   - Given the stochastic generation by LLM, it is important to ensure that we have extracted and will provide the users near-perfectly precise, thus helpful information

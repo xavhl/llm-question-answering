@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Aurora Question Answering API
+  version: 1.0.0
+  description: This API allows users to ask questions and retrieve answers using the Aurora question-answering model hosted on Hugging Face.
+servers:
+  - url: https://xavhl-aurora-question-answeirng.hf.space/gradio_api/call
+paths:
+  /respond:
+    post:
+      summary: Get an answer to a question
+      description: Accepts a question and retrieves the top-k answers for (RAG query) based on the input.
+      operationId: getAnswer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  description: question prompt regarding member data
+                  example: "When is Layla planning her trip to London?"
+                top_k:
+                  type: integer
+                  description: Top-k hyperparameter for RAG query
+                  default: 8
+                  example: 8
+              required:
+                - question
+      responses:
+        '200':
+          description: A successful response containing the answer.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                    description: answer for user input question
+                    example: "Layla plans to visit London at 9:30 AM."
+        '400':
+          description: Bad request, validation errors.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Description of the error.
+                    example: "Invalid input."
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Description of the error.
+                    example: "An unexpected error occurred."

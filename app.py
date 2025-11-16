@@ -19,8 +19,8 @@ retriever = Retriever(df, embeddings)
 generator = load_generator(os.getenv("LLM_MODEL","Qwen/Qwen2-0.5B-Instruct"))
 
 def respond(question, top_k=8):
-    ans = answer_question(generator, retriever, question, top_k=top_k)
-    return ans
+    response = answer_question(generator, retriever, question, top_k=top_k)
+    return response.get("answer", "No answer found.")
 
 with gr.Blocks() as demo:
     gr.Markdown("# LLM QA — RAG demo")
