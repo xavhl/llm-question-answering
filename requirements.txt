@@ -1,0 +1,7 @@
+gradio>=3.0
+pandas
+numpy
+sentence-transformers
+faiss-cpu       # on Spaces you can rely on CPU builds; if GPU is available, hug may provide faiss-gpu
+transformers>=4.30.0
+torch
